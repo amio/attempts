@@ -6,12 +6,12 @@ const checkFileAvailable = function (path) {
   fs.accessSync(path, fs.constants.R_OK)
   return path
 }
-const fileExpected = 'package.json'
+const nameExpected = 'package.json'
 const fileNames = [
-  'nonexistence-a',
-  'nonexistence-b',
+  'package.js',
+  'package.jso',
   'package.json',
-  'nonexistence-c'
+  'package.jsonp'
 ]
 const fileNames404 = [
   'nonexistence-a',
@@ -21,13 +21,13 @@ const fileNames404 = [
 
 // TEST: attempts.sync()
 const testResultSync = attempts.sync(checkFileAvailable, fileNames)
-assert.equal(testResultSync, fileExpected, '(sync) should found ' + fileExpected)
+assert.equal(testResultSync, nameExpected, '(sync) should found ' + nameExpected)
 
 // TEST: attempt()
 attempts(checkFileAvailable, fileNames).then(resolved => {
-  assert.equal(resolved, fileExpected, 'should found ' + fileExpected)
+  assert.equal(resolved, nameExpected, 'should found ' + nameExpected)
 }, rejected => {
-  throw new Error('could not found ' + fileExpected)
+  throw new assert.AssertionError('could not found ' + nameExpected)
 })
 
 // TEST: attempts.sync() 404
@@ -36,7 +36,11 @@ assert.equal(undefined, testResultSync404, '(sync) should found nothing')
 
 // TEST: attempts() 404
 attempts(checkFileAvailable, fileNames404).then(resolved => {
-  throw new Error('found ' + resolved + '?!')
+  throw new assert.AssertionError('found ' + resolved + '?!')
 }, rejected => {
   assert.ok(true, 'should found nothing')
+})
+
+process.on('unhandledRejection', (reason) => {
+  throw reason
 })
