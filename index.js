@@ -3,9 +3,9 @@ function attempts (fn, args) {
     return prev.then(resolved => resolved, rejected => {
       try {
         const ret = fn(...[].concat(curr))
-        return ret ? Promise.resolve(ret) : Promise.reject(ret)
+        return ret ? Promise.resolve(ret) : Promise.reject()
       } catch (e) {
-        return Promise.reject(e)
+        return Promise.reject()
       }
     })
   }, Promise.reject())
@@ -21,5 +21,8 @@ function attemptsSync (fn, args) {
   }, false)
 }
 
-module.exports = attempts
-module.exports.sync = attemptsSync
+module.exports = {
+  default: attempts,
+  async: attempts,
+  sync: attemptsSync
+}
