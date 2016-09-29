@@ -4,14 +4,12 @@ Try func with different args.
 
 ## Methods
 
-```bash
-npm install attempts
-```
-
 - `attempts.sync(fn: function, args: array)`  
+
   Try `fn` with `args` one by one, until find a truthy return value.
 
 - `attempts.async(fn: function, args: array)` returns a `Promise`  
+
   Try `fn` with `args` one by one, until find a truthy return value or
   resolved Promise.
 
