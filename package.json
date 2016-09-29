@@ -3,16 +3,17 @@
   "version": "0.0.0",
   "description": "Try func with different args.",
   "author": "Amio <amio.cn@gmail.com>",
-  "reposotiry": "amio/attempts",
+  "repository": "amio/attempts",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
     "build": "buble index.src.js > index.js",
     "pretest": "npm run build",
-    "test": "node test.js"
+    "test": "tape tests.js"
   },
   "devDependencies": {
-    "buble": "^0.14.0"
+    "buble": "^0.14.0",
+    "tape": "^4.6.0"
   },
   "keywords": [
     "attempt",
