@@ -7,7 +7,12 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "build": "buble index.src.js > index.js",
+    "pretest": "npm run build",
     "test": "node test.js"
+  },
+  "devDependencies": {
+    "buble": "^0.14.0"
   },
   "keywords": [
     "attempt",
