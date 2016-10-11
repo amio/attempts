@@ -4,16 +4,15 @@ Try func with different args.
 
 ## Methods
 
-- `attempts.sync(fn, args)` ⇒ result / `undefined`  
+- `attempts.sync(fn, args)` *⇒ result / `undefined`*  
+  Invoke `fn` with `args[n]` one by one, until get a truthy return value.
 
-  Try `fn` with `args[n]` one by one, until find a truthy return value.
-
-- `attempts.async(fn, args)` ⇒ `Promise`(resolved with result / rejected with `undefined`)  
-
-  Try `fn` with `args[n]` one by one, until find a truthy return value or
+- `attempts.async(fn, args)` *⇒ `Promise` (resolved with result / rejected with `undefined`)*  
+  Invoke `fn` with `args[n]` one by one, until get a truthy return value or
   resolved Promise.
 
-Exceptions within `fn` will be catched & treated as a falsy return.
+Exceptions within `fn` will be catched & treated as a falsy return, handy for
+some Node.js API (`fs.accessSync`, `fs.statSync`, etc.) throw errors regularly.
 
 ## Example
 
