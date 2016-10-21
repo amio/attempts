@@ -4,14 +4,14 @@ Try func with different args.
 
 ## Methods
 
-- `attempts.sync(fn, args)` *⇒ result / `undefined`*  
-  Invoke `fn` with `args[n]` one by one, until get a truthy return value.
+- `attempts.sync(values, fn)` *⇒ result / `undefined`*  
+  Invoke `fn` with `values[n]` one by one, until get a truthy return value.
 
-- `attempts.async(fn, args)` *⇒ `Promise` (resolved with result / rejected with `undefined`)*  
-  Invoke `fn` with `args[n]` one by one, until get a truthy return value or
+- `attempts.async(values, fn)` *⇒ `Promise` (resolved with result / rejected with `undefined`)*  
+  Invoke `fn` with `values[n]` one by one, until get a truthy return value or
   resolved Promise.
 
-Exceptions within `fn` will be catched & treated as a falsy return, handy for
+NOTE: Exceptions within `fn` will be catched & treated as a falsy return, handy for
 some Node.js API (`fs.accessSync`, `fs.statSync`, etc.) throw errors regularly.
 
 ## Example
@@ -27,7 +27,7 @@ const possibleConfigs = [
   './config.default.json'
 ]
 
-const config = attempts.sync(readConfig, possibleConfigs)
+const config = attempts.sync(possibleConfigs, readConfig)
 ```
 
 ## License

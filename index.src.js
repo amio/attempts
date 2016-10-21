@@ -1,5 +1,8 @@
-function attempts (fn, args) {
-  return args.reduce((prev, curr) => {
+function attempts (vals, fn) {
+  if (fn instanceof Array && typeof vals === 'function') {
+    [fn, vals] = [vals, fn]
+  }
+  return vals.reduce((prev, curr) => {
     return prev.then(resolved => resolved, rejected => {
       try {
         const ret = fn(...[].concat(curr))
@@ -11,8 +14,11 @@ function attempts (fn, args) {
   }, Promise.reject())
 }
 
-function attemptsSync (fn, args) {
-  return args.reduce((prev, curr) => {
+function attemptsSync (vals, fn) {
+  if (fn instanceof Array && typeof vals === 'function') {
+    [fn, vals] = [vals, fn]
+  }
+  return vals.reduce((prev, curr) => {
     if (prev) return prev
     try {
       const ret = fn(...[].concat(curr))

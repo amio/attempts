@@ -19,19 +19,19 @@ const returnValues = [0, '', false, undefined, 'found', 'promise']
 test('attempts.async()', t => {
   t.plan(3)
 
-  attemptsAsync(checkFileAvailable, fileNames).then(resolved => {
+  attemptsAsync(fileNames, checkFileAvailable).then(resolved => {
     t.equal(resolved, nameExpected, 'should found ' + nameExpected)
   }, rejected => {
     t.fail('could not found ' + nameExpected)
   })
 
-  attemptsAsync(checkFileAvailable, fileNames404).then(resolved => {
+  attemptsAsync(fileNames404, checkFileAvailable).then(resolved => {
     t.fail('found ' + resolved + '?!')
   }, rejected => {
     t.pass('should found nothing')
   })
 
-  attemptsAsync(echoReturnValue, returnValues).then(resolved => {
+  attemptsAsync(returnValues, echoReturnValue).then(resolved => {
     t.equal(resolved, 'promise', 'should get "promise"')
   }, rejected => {
     t.fail('could not get "found"')
@@ -39,15 +39,25 @@ test('attempts.async()', t => {
 })
 
 test('attempts.sync()', t => {
-  t.plan(3)
+  t.plan(6)
 
-  const resultFile = attemptsSync(checkFileAvailable, fileNames)
+  const resultFile = attemptsSync(fileNames, checkFileAvailable)
   t.equal(resultFile, nameExpected, '(sync) should found ' + nameExpected)
 
-  const result404 = attemptsSync(checkFileAvailable, fileNames404)
+  const resultFileR = attemptsSync(checkFileAvailable, fileNames)
+  t.equal(resultFileR, nameExpected, '(sync.r) should found ' + nameExpected)
+
+  const result404 = attemptsSync(fileNames404, checkFileAvailable)
   t.equal(result404, undefined, '(sync) should found nothing')
 
-  const resultPromise = attemptsSync(echoReturnValue, returnValues)
+  const result404R = attemptsSync(checkFileAvailable, fileNames404)
+  t.equal(result404R, undefined, '(sync.r) should found nothing')
+
+  const resultPromise = attemptsSync(returnValues, echoReturnValue)
   t.ok(resultPromise instanceof Promise, '(sync) should get a rejected Promise')
   resultPromise.catch(e => e)
+
+  const resultPromiseR = attemptsSync(returnValues, echoReturnValue)
+  t.ok(resultPromiseR instanceof Promise, '(sync.r) should get a rejected Promise')
+  resultPromiseR.catch(e => e)
 })
