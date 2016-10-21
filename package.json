@@ -1,6 +1,6 @@
 {
   "name": "attempts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Try func with different args.",
   "author": "Amio <amio.cn@gmail.com>",
   "repository": "amio/attempts",
