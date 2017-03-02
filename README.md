@@ -1,5 +1,7 @@
 # attempts [![npm-version][npm-badge]][npm-link]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/amio/attempts.svg)](https://greenkeeper.io/)
+
 Try func with different args.
 
 ## Methods
